@@ -1,4 +1,4 @@
-import { toPersianDigits } from "@/utils/utils/toPersianDigits";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import {
     BookmarkIcon,
     ChatBubbleBottomCenterTextIcon,

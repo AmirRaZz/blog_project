@@ -5,7 +5,7 @@ import SortBar from "@/components/posts/SortBar";
 
 const fetchPost = async (slug) => {
     const res = await fetch(
-        `http://localhost:5000/api/posts?limit=6&page=1&categorySlug=${slug}`
+        `http://localhost:5000/api/posts?limit=6&page=1&categorySlug=${slug}`,{cache:"no-store"}
     );
     const post = await res.json();
     const { data } = post;

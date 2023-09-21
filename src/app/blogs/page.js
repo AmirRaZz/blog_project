@@ -4,7 +4,7 @@ import PostList from "@/components/posts/PostList";
 import SortBar from "@/components/posts/SortBar";
 
 const fetchPosts = async () => {
-    const res = await fetch("http://localhost:5000/api/posts?limit=6&page=1");
+    const res = await fetch("http://localhost:5000/api/posts?limit=6&page=1",{cache:"no-store"});
     const posts = await res.json();
     const { data } = posts;
     return data;

@@ -1,16 +1,18 @@
 import PostInteraction from "@/components/posts/PostInteraction";
-import toLocalDate from "@/utils/utils/toLocalDate";
-import { toPersianDigits } from "@/utils/utils/toPersianDigits";
+import toLocalDate from "@/utils/toLocalDate";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { BookmarkIcon as SolidBookmarkIcon } from "@heroicons/react/24/solid";
-import {IoLogoLinkedin, IoLogoTwitter} from "react-icons/io"
-import {FaTelegram} from "react-icons/fa"
+import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
+import { FaTelegram } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import Copy from "@/components/posts/CopyButton";
+import PostList from "@/components/posts/PostList";
+import PostComments from "@/components/posts/postComments/Comments";
 
 const fetchPost = async (slug) => {
-    const res = await fetch(`http://localhost:5000/api/posts/${slug}`);
+    const res = await fetch(`http://localhost:5000/api/posts/${slug}`,{cache:"no-store"});
     const posts = await res.json();
     const { data } = posts;
     return data;
@@ -197,10 +199,23 @@ const PostPage = async ({ params }) => {
                                 />
                             </a>
                         </div>
-                        <Copy post={post}/>
+                        <Copy post={post} />
                     </div>
                 </div>
+                <div className="border-t-2 border-gray-500 rounded w-full mb-8"></div>
             </section>
+            {/* related posts */}
+            <section className="mb-20">
+                <h2 className="font-extrabold text-2xl md:text-3xl mb-8">
+                    پست های مشابه
+                </h2>
+                <div className="grid grid-cols-6 gap-10">
+                    <PostList blogsData={post.related} />
+                </div>
+            </section>
+            {/* post comments */}
+            <PostComments post={post}/>
+            <div className="h-32"></div>
         </div>
     );
 };
