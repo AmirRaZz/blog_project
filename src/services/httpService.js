@@ -1,9 +1,8 @@
 import axios from "axios";
 
-console.log(process.env.BASE_API_URL);
 const app = axios.create({
-  baseURL: "https://next-app-back-end.herokuapp.com/api",
-  withCredentials: true,
+    baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
+    withCredentials: true,
 });
 
 const http = {

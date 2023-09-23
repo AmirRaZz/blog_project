@@ -4,8 +4,9 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 import Input from "@/components/FormInput/Input";
-import axios from "axios";
-
+import { useEffect } from "react";
+import { useAuth,useAuthActions } from "src/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 //  initial values
 const initialValues = {
@@ -37,11 +38,16 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
-
+    const router = useRouter();
+    const dispatch = useAuthActions();
+    const {user, loading} = useAuth();
     //  onSubmit
     const onSubmit = (values) => {
         const { name, email, phoneNumber, password } = values;
-        
+        dispatch({
+            type: "SIGNUP",
+            payload: { name, email, phoneNumber, password },
+        });
         // dispatch(userSignup({ name, email, password, phoneNumber }));
     };
 
@@ -51,6 +57,10 @@ const SignUpForm = () => {
         validationSchema,
         validateOnMount: true,
     });
+
+    useEffect(() => {
+        if (user) router.push("/");
+    }, [user]);
 
     return (
         <div className="md:max-w-md px-4 md:px-4 container  mx-auto">

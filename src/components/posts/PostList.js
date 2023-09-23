@@ -8,7 +8,7 @@ const PostList = ({ blogsData }) => {
         return (
             <div
                 key={index}
-                className="col-span-6 md:col-span-3 lg:col-span-2 bg-white flex flex-col rounded-3xl p-2 max-h-[350px]"
+                className="col-span-6 md:col-span-3 lg:col-span-2 bg-white flex flex-col rounded-3xl p-2 max-h-[400px]"
             >
                 {/* cover image */}
                 <div className="aspect-w-16 aspect-h-9 mb-6">

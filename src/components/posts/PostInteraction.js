@@ -1,3 +1,6 @@
+"use client";
+
+import http from "@/services/httpService";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import {
     BookmarkIcon,
@@ -8,10 +11,35 @@ import {
     HeartIcon as SolidHeartIcon,
     BookmarkIcon as SolidBookmarkIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const PostInteraction = ({ blog, isSmall, className }) => {
     const iconSize = isSmall ? "h-4 w-4" : "h-6 w-6";
     const numberSize = isSmall ? "text-xs" : "text-base";
+    const router = useRouter();
+
+    const likeHandler = (postId) => {
+        http.put(`/posts/like/${postId}`)
+            .then(({ data }) => {
+                router.refresh();
+                toast.success(data.message);
+            })
+            .catch((err) => {
+                toast.error(err?.response?.data?.message);
+            });
+    };
+
+    const bookmarkHandler = (postId) => {
+        http.put(`/posts/bookmark/${postId}`)
+            .then(({data}) => {
+                router.refresh();
+                toast.success(data.message);
+            })
+            .catch(err =>{
+                toast.error(err?.response?.data?.message)
+            });
+    };
 
     return (
         <div
@@ -29,17 +57,23 @@ const PostInteraction = ({ blog, isSmall, className }) => {
                     {toPersianDigits(blog.commentsCount || 0)}
                 </span>
             </button>
-            <button className="bg-red-100 p-0.5 rounded flex items-center gap-x-1 text-red-500 hover:bg-red-500 hover:text-red-100 transition-all">
+            <button
+                onClick={() => likeHandler(blog._id)}
+                className="bg-red-100 p-0.5 rounded flex items-center gap-x-1 text-red-500 hover:bg-red-500 hover:text-red-100 transition-all"
+            >
                 {blog.isLiked ? (
                     <SolidHeartIcon className={`${iconSize} fill-current`} />
                 ) : (
                     <HeartIcon className={`${iconSize} stroke-current`} />
                 )}
                 <span className={`${numberSize} block font-bold leading-3`}>
-                    {toPersianDigits(blog.likeCount || 0)}
+                    {toPersianDigits(blog.likesCount || 0)}
                 </span>
             </button>
-            <button className="bg-blue-100 text-blue-500 p-0.5 rounded flex items-center gap-x-1 hover:bg-blue-500 hover:text-white transition-all">
+            <button
+                onClick={() => bookmarkHandler(blog._id)}
+                className="bg-blue-100 text-blue-500 p-0.5 rounded flex items-center gap-x-1 hover:bg-blue-500 hover:text-white transition-all"
+            >
                 {blog.isBookmarked ? (
                     <SolidBookmarkIcon className={`${iconSize} fill-current`} />
                 ) : (

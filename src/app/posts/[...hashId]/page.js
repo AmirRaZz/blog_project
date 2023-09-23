@@ -10,11 +10,18 @@ import Link from "next/link";
 import Copy from "@/components/posts/CopyButton";
 import PostList from "@/components/posts/PostList";
 import PostComments from "@/components/posts/postComments/Comments";
+import { cookies } from "next/headers";
+import http from "@/services/httpService";
+export const dynamic = "force-dynamic";
 
 const fetchPost = async (slug) => {
-    const res = await fetch(`http://localhost:5000/api/posts/${slug}`,{cache:"no-store"});
-    const posts = await res.json();
-    const { data } = posts;
+    const res = await http.get(`/posts/${slug}`, {
+        headers: {
+            Cookie: `userToken=${cookies().get("userToken")?.value || ""}`,
+            // Authorization:`Bearer ${cookies().get("userToken")?.value}`
+        },
+    });
+    const { data } = res.data;
     return data;
 };
 
@@ -214,7 +221,7 @@ const PostPage = async ({ params }) => {
                 </div>
             </section>
             {/* post comments */}
-            <PostComments post={post}/>
+            <PostComments post={post} />
             <div className="h-32"></div>
         </div>
     );

@@ -3,9 +3,9 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 import Input from "@/components/FormInput/Input";
-import axios from "axios";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useAuth, useAuthActions } from "src/context/AuthContext";
+import { useEffect } from "react";
 
 //  initial values
 const initialValues = {
@@ -24,19 +24,13 @@ const validationSchema = Yup.object({
 });
 
 const SignInForm = () => {
-    const router = useRouter();
+    const router=useRouter()
+    const dispatch=useAuthActions()
+    const {loading,user}=useAuth()
     //  onSubmit
     const onSubmit = (values) => {
         const { email, password } = values;
-        axios
-            .post("http://localhost:5000/api/user/signin", values,{withCredentials:true})
-            .then((res) => {
-                toast.success("با موفقیت وارد شدید");
-                router.push("/");
-            })
-            .catch((err) => {
-                toast.error(err?.response?.data?.message);
-            });
+        dispatch({ type: "SIGNIN", payload: values }); // context method
         // dispatch(userSignin(values));
     };
 
@@ -46,6 +40,10 @@ const SignInForm = () => {
         validationSchema,
         validateOnMount: true,
     });
+
+    useEffect(()=>{
+        if (user) router.push("/")
+    },[user])
 
     return (
         <>
