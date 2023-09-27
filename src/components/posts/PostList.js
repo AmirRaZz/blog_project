@@ -33,7 +33,7 @@ const PostList = ({ blogsData }) => {
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center">
                                 <Image
-                                    src="/images/tailwind.jpg"
+                                    src="/images/me.jpg"
                                     width={24}
                                     height={24}
                                     className="w-6 h-6 rounded-full ring-2 ml-2 ring-white"

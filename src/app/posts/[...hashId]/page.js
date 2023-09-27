@@ -37,7 +37,7 @@ const PostPage = async ({ params }) => {
                 {/* author data */}
                 <div className="flex items-stretch">
                     <Image
-                        src="/images/nextjs.png"
+                        src="/images/me.jpg"
                         width={56}
                         height={56}
                         className="w-14 h-14 md:w-20 md:h-20 rounded-full ring-2 ring-white"
@@ -45,7 +45,7 @@ const PostPage = async ({ params }) => {
                     />
                     <div className="flex flex-col mr-4 justify-between">
                         <div>
-                            <span className="font-extrabold text-base">
+                            <span className="font-extrabold text-base ml-3">
                                 {post.author.name}
                             </span>
                             <Link
