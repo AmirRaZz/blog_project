@@ -32,10 +32,9 @@ const asyncActionHandlers = {
         ({ dispatch }) =>
         (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
-            http
-                .post("/user/signin", action.payload)
+            http.post("/user/signin", action.payload)
                 .then(({ data }) => {
-                    toast.success("با موفقیت وارد شدید");
+                    toast.success(`${data.name} خوش آمدی!`);
                     dispatch({ type: "SIGNIN_SUCCESS", payload: data });
                 })
                 .catch((err) => {
@@ -50,10 +49,9 @@ const asyncActionHandlers = {
         ({ dispatch }) =>
         (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
-            http
-                .post("/user/signup", action.payload)
+            http.post("/user/signup", action.payload)
                 .then(({ data }) => {
-                    toast.success("با موفقیت وارد شدید");
+                    toast.success(`${data.name} خوش آمدی!`);
                     dispatch({ type: "SIGNIN_SUCCESS", payload: data });
                 })
                 .catch((err) => {
@@ -68,8 +66,7 @@ const asyncActionHandlers = {
         ({ dispatch }) =>
         (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
-            http
-                .get("/user/load")
+            http.get("/user/load")
                 .then(({ data }) => {
                     dispatch({ type: "SIGNIN_SUCCESS", payload: data });
                 })
@@ -83,8 +80,7 @@ const asyncActionHandlers = {
     SIGNOUT:
         ({ dispatch }) =>
         (action) => {
-            http
-                .get("/user/logout")
+            http.get("/user/logout")
                 .then(({ data }) => {
                     window.location.href = "/";
                 })

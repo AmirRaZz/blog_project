@@ -41,6 +41,7 @@ const SignUpForm = () => {
     const router = useRouter();
     const dispatch = useAuthActions();
     const {user, loading} = useAuth();
+
     //  onSubmit
     const onSubmit = (values) => {
         const { name, email, phoneNumber, password } = values;
@@ -48,7 +49,6 @@ const SignUpForm = () => {
             type: "SIGNUP",
             payload: { name, email, phoneNumber, password },
         });
-        // dispatch(userSignup({ name, email, password, phoneNumber }));
     };
 
     const formik = useFormik({

@@ -27,11 +27,10 @@ const SignInForm = () => {
     const router=useRouter()
     const dispatch=useAuthActions()
     const {loading,user}=useAuth()
+
     //  onSubmit
     const onSubmit = (values) => {
-        const { email, password } = values;
-        dispatch({ type: "SIGNIN", payload: values }); // context method
-        // dispatch(userSignin(values));
+        dispatch({ type: "SIGNIN", payload: values });
     };
 
     const formik = useFormik({

@@ -30,7 +30,7 @@ const PostComments = ({ post }) => {
             {/* base comment form */}
             <div className="mt-8">
                 <span className="font-bold md:text-lg">ارسال دیدگاه جدید</span>
-                <CommentForm postId={post._id} responseTo={null} />
+                <CommentForm postId={post._id} responseTo={null}/>
             </div>
         </div>
     );

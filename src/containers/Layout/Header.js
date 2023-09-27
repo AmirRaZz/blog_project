@@ -1,15 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useAuth, useAuthActions } from "src/context/AuthContext";
-// import { useDispatch, useSelector } from "react-redux";
-// import { signout } from "src/redux/user/userActions";
 
 const Header = () => {
     const { user, loading } = useAuth();
     const dispatch = useAuthActions();
-    // const userInfo = useSelector((state) => state.userSignin);
-    // const { user, loading } = userInfo;
-    // const dispatch = useDispatch();
 
     return (
         <header className={`bg-white shadow-md py-2 mb-8 sticky top-0 z-40`}>
